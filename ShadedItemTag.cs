@@ -17,9 +17,9 @@ namespace ShadedItemTag
 {
 	public class ShadedItemTag : Mod {
 		public override void Load() {
-			ModTranslation newTranslation = LocalizationLoader.GetOrCreateTranslation("Mods.ShadedItemTag.TooltipTag", true);
-			newTranslation.SetDefault("si");
-			LocalizationLoader.AddTranslation(newTranslation);
+			LocalizedText newTranslation = Language.GetOrRegister("Mods.ShadedItemTag.TooltipTag", true);
+			// newTranslation.SetDefault("si");
+			LocalizationLoader.AddTranslation(newTranslation)/* tModPorter Note: Removed. Use Language.GetOrRegister */;
 			ChatManager.Register<ShadedItemTagHandler>(new string[]{
 				"si",
 				"shadeditem"
