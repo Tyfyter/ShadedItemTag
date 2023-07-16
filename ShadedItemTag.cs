@@ -9,6 +9,7 @@ using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Core;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
 using Terraria.UI.Chat;
@@ -17,9 +18,8 @@ namespace ShadedItemTag
 {
 	public class ShadedItemTag : Mod {
 		public override void Load() {
-			LocalizedText newTranslation = Language.GetOrRegister("Mods.ShadedItemTag.TooltipTag", true);
-			// newTranslation.SetDefault("si");
-			LocalizationLoader.AddTranslation(newTranslation)/* tModPorter Note: Removed. Use Language.GetOrRegister */;
+			LocalizedText newTranslation = Language.GetOrRegister("Mods.ShadedItemTag.TooltipTag");
+			typeof(LocalizedText).GetField("_value", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(newTranslation, "si");
 			ChatManager.Register<ShadedItemTagHandler>(new string[]{
 				"si",
 				"shadeditem"
@@ -122,7 +122,7 @@ namespace ShadedItemTag
 
 		public static string GenerateTag(Item I) {
 			string str = "[si";
-			if (I.ModItem != null || I.Globals.Length > 0) {
+			if (I.ModItem != null || GlobalTypeLookups<GlobalItem>.GetGlobalsForType(I.type).Length > 0) {
 				str = str + "/d" + ItemIO.ToBase64(I);
 			} else {
 				if (I.prefix != 0) {

@@ -1,8 +1,4 @@
 This mod does nothing but provide a version of the item chat tag which looks better in item tooltips
 To use in your mod: replace [i] or [item] tags with [si] or [shadeditem] under the condition that this mod is enabled
 Alternatively, use {$Mods.ShadedItemTag.TooltipTag} as the tag name and add the following code to your mod's Load override:
-ModTranslation itemTag = LocalizationLoader.GetOrCreateTranslation("Mods.ShadedItemTag.TooltipTag", true);
-if (itemTag.GetDefault() is null) {
-	itemTag.SetDefault("i");
-	LocalizationLoader.AddTranslation(itemTag);
-}
+Language.GetOrRegister("Mods.ShadedItemTag.TooltipTag", () => "i");
